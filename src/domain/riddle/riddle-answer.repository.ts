@@ -1,7 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
-import { getAnswerFor } from './riddle-answer.adapter';
+import { useRiddleAnswer } from './RiddleAnswerProvider';
 
 export const useRiddleAnswerRepository = (riddleId: string | undefined) => {
+    const getAnswerFor = useRiddleAnswer();
+
     return useQuery({
         queryKey: ['riddle-answer', riddleId],
         queryFn: () => getAnswerFor(riddleId!),
