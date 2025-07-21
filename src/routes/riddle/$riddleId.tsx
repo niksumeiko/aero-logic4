@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import classNames from 'classnames';
-import { getAnswerFor } from 'riddle-exam';
 import { createFileRoute, Link, useParams } from '@tanstack/react-router';
+import { useRiddleAnswerRepository } from '../../domain/riddle/riddle-answer.repository';
 
 export const Route = createFileRoute('/riddle/$riddleId')({
     component: RiddleId,
@@ -20,7 +20,7 @@ const RiddleId = () => {
     const { riddleId: id } = useParams({ from: '/riddle/$riddleId' });
     const [riddle, setRiddle] = useState<Riddle>();
     const [isLoading, setIsLoading] = useState(true);
-    const [correct, setCorrect] = useState<{ id: string }>();
+    const { data: correct } = useRiddleAnswerRepository(riddle?.id);
     const [selected, setSelected] = useState<string>();
     const [random, setRandom] = useState<string>();
 
@@ -31,9 +31,9 @@ const RiddleId = () => {
 
         setSelected(id);
 
-        const data = await getAnswerFor(riddle!.id);
+        // const data = await getAnswerFor(riddle!.id);
 
-        setCorrect(data);
+        // setCorrect(data);
     };
 
     const sorted = useMemo(
