@@ -62,6 +62,7 @@ const RiddleId = () => {
     }, []);
 
     if (!riddle || !sorted || isLoading) {
+        console.log(riddle, sorted, isLoading);
         return null;
     }
 
@@ -86,13 +87,14 @@ const RiddleId = () => {
                                 correct &&
                                 correct.id !== answer.id,
                         })}
+                        data-test={`riddle-answer-${answer.id}`}
                     >
                         <span className="pl-2">{answer.text}</span>
                     </li>
                 ))}
             </ul>
             {selected && correct && selected === correct.id && (
-                <div className="bg-green-400 my-6 p-3">
+                <div className="bg-green-400 my-6 p-3" data-test="riddle-answer-correct">
                     {"Great job! You're right 🙏"}
                 </div>
             )}

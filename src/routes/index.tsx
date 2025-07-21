@@ -52,7 +52,11 @@ const Index = () => {
                 </p>
                 <div className="p-20 text-center">
                     {id && (
-                        <Link to={`/riddle/${id}`} className="border border-blue-500 p-5">
+                        <Link
+                            to={`/riddle/${id}`}
+                            className="border border-blue-500 p-5"
+                            data-test="riddle-link"
+                        >
                             Resolve random riddle
                         </Link>
                     )}

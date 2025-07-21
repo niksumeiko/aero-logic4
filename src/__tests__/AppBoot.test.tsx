@@ -17,8 +17,18 @@ describe('Booting the app', () => {
             ],
         });
 
+        cy.intercept('GET', 'http://localhost:3000/riddles/X', {
+            body: {
+                id: 'X',
+                contents: 'y',
+                answers: [{ id: 'z', text: 'ZZ' }],
+            },
+        });
+
         cy.mount(<App />, '/');
 
-        cy.get('img[alt="Aero Logic"]').should('be.visible');
+        cy.getByTestId('riddle-link').click();
+        cy.getByTestId('riddle-answer-z').click();
+        cy.getByTestId('riddle-answer-correct').should('be.visible');
     });
 });
