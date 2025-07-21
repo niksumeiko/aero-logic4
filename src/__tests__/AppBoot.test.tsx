@@ -1,4 +1,6 @@
 import { App } from '../App';
+import { provideRiddleAnswer } from '../domain/riddle/RiddleAnswerProvider';
+import { ContextProvider } from '../common/context';
 
 describe('Booting the app', () => {
     it('successfully boots the app', () => {
@@ -25,7 +27,17 @@ describe('Booting the app', () => {
             },
         });
 
-        cy.mount(<App />, '/');
+        const fake = () =>
+            Promise.resolve({
+                id: 'z',
+                text: 'ZZ',
+            });
+        cy.mount(
+            <ContextProvider providers={[provideRiddleAnswer(fake)]}>
+                <App />
+            </ContextProvider>,
+            '/',
+        );
 
         cy.getByTestId('riddle-link').click();
         cy.getByTestId('riddle-answer-z').click();
